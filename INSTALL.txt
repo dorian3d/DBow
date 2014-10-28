@@ -1,0 +1,28 @@
+The library is delivered with installation files for Visual Studio 9 (at
+least) and simple Makefiles. It has been tested on Windows with Visual
+Studio and STLport, and on Ubuntu with gcc 4.2.4. To install in Windows,
+open the Visual Studio sln file, open the Property page of the Demo
+project, change the include and library path of OpenCV if it is
+necessary, and compile all. If you do not have OpenCV installed or do
+not want to build de Demo application, disable that project.
+
+To install in *nix, just type make nocv or make install-nocv to build
+the libraries. The latter command also copies them to the lib directory
+(not in the system directory). These commands do not build the demo
+application, which requires OpenCV2. To build also the demo, first make
+sure that pkg-config can find the OpenCV paths. If it cannot, you can
+modify the root Makefile and manually set the OPENCV_CFLAGS and
+OPENCV_LFLAGS macros. It should look like this:
+
+Demo/Demo:
+make -C Demo \
+OPENCV_CFLAGS='/.../opencv/include/opencv' \
+OPENCV_LFLAGS='/.../opencv/lib' \
+OPENCV_LIBS='-lcxcore -lcv -lhighgui -lcvaux -lml'
+
+Then, type make to build the demo, or make install to copy it to the bin
+directory too. A more portable installation system is not available,
+sorry.
+
+Two lib/so library files are created. Your program must link against
+both of them (DBow and DUtils).
